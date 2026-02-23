@@ -1,0 +1,9 @@
+{
+  "name": "starai-deploy-cli-api",
+  "version": "1.0.0",
+  "description": "TypeScript types for starai-deploy-cli hooks (public API, consumed by deploy-hooks)",
+  "private": false,
+  "main": "",
+  "types": "index.ts",
+  "exports": { ".": "./index.ts" }
+}
