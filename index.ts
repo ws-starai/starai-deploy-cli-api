@@ -1,7 +1,6 @@
 /**
- * starai-deploy-cli 对外钩子接口类型（与 CLI 内部 src/types 保持同步）。
- * 本文件为「公开仓库 starai-deploy-cli-types」的唯一源码，由 CLI 发布流程同步更新。
- * 仅包含钩子接入方（如 starai-database deploy-hooks.ts）依赖的类型。
+ * starai-deploy-cli 对外钩子接口类型，唯一维护处。
+ * 供 CLI 内部、starai-database 等子项目 deploy-hooks 使用，仅此一份，勿在 CLI 内再定义。
  */
 
 /** 部署类型：docker-build 需构建镜像，config-only 仅拉取配置并 compose up */
