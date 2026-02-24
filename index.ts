@@ -36,11 +36,22 @@ export interface DeployParams {
     commit?: string;
 }
 
+/** 钩子内网络下载选项（走 CLI 代理逻辑：可用走代理、不可用直连、失败降级直连） */
+export interface DownloadWithPolicyOptions {
+    authHeader?: string;
+    timeoutSec?: number;
+}
+
 export interface DeployHookContext {
     deployId: string;
     phase: string;
     /** 输出到 CLI 部署日志与 stream，钩子内可用 ctx.log 或 console.log/warn/error */
     log?(message: string): void;
+    /**
+     * 带代理策略的下载：代理可用则走代理，不可用则直连；走代理失败时自动降级直连并打日志。
+     * 钩子内用于下载 MMDB、规则文件等，与 CLI 内部 download_source 同策略。
+     */
+    downloadWithPolicy?(url: string, destPath: string, options?: DownloadWithPolicyOptions): Promise<void>;
 }
 
 export interface DeployHooks {
