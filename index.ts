@@ -6,6 +6,9 @@
 /** 部署类型：docker-build 需构建镜像，config-only 仅拉取配置并 compose up */
 export type DeployType = "docker-build" | "config-only";
 
+/** 部署流式日志级别，用于 GET /deploy-stream/:id?min_level= 过滤与 SSE 事件中的 level 字段 */
+export type LogLevel = "debug" | "info" | "warn" | "error";
+
 /**
  * 部署参数（与 starai-api 下发 body 一致）
  */
@@ -45,8 +48,8 @@ export interface DownloadWithPolicyOptions {
 export interface DeployHookContext {
     deployId: string;
     phase: string;
-    /** 输出到 CLI 部署日志与 stream，钩子内可用 ctx.log 或 console.log/warn/error */
-    log?(message: string): void;
+    /** 输出到 CLI 部署日志与 stream，钩子内可用 ctx.log 或 console.log/warn/error。level 默认 info */
+    log?(message: string, level?: LogLevel): void;
     /**
      * 带代理策略的下载：代理可用则走代理，不可用则直连；走代理失败时自动降级直连并打日志。
      * 钩子内用于下载 MMDB、规则文件等，与 CLI 内部 download_source 同策略。
